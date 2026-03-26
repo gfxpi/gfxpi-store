@@ -3,99 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gfx_PI | Premium Digital Store</title>
+    <title>Gfx_PI | Elite Digital Store</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700;800&display=swap');
         :root { --p: #00ffa3; --bg: #000; --card: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.08); }
-        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.3s; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         body { background: var(--bg); color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
 
         /* Background Glows */
         .glow { position: fixed; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0,255,163,0.05) 0%, transparent 70%); top: -20%; left: -20%; z-index: -1; pointer-events: none; }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(0,0,0,0.7); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
-        .logo { font-size: 24px; font-weight: 800; text-decoration: none; color: #fff; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 24px; font-weight: 800; text-decoration: none; color: #fff; letter-spacing: -1px; }
         .logo span { color: var(--p); }
-        .cart-btn { background: #fff; color: #000; padding: 10px 20px; border-radius: 50px; font-weight: 800; cursor: pointer; border: none; }
+        .cart-btn { background: #fff; color: #000; padding: 10px 20px; border-radius: 50px; font-weight: 800; cursor: pointer; border: none; font-size: 13px; }
 
-        .hero { padding: 120px 20px 60px; text-align: center; }
-        .hero h1 { font-size: clamp(45px, 10vw, 100px); font-weight: 800; letter-spacing: -5px; line-height: 0.85; }
-        .hero p { color: #666; margin-top: 20px; font-size: 18px; }
+        /* Hero */
+        .hero { padding: 100px 20px 60px; text-align: center; }
+        .hero h1 { font-size: clamp(45px, 10vw, 100px); font-weight: 800; letter-spacing: -5px; line-height: 0.85; margin-bottom: 20px; }
+        .hero span { color: var(--p); text-shadow: 0 0 30px rgba(0,255,163,0.3); }
+        .hero p { color: #666; max-width: 600px; margin: 0 auto; font-size: 18px; }
 
         /* Categories */
-        .cats { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
-        .cat-btn { background: var(--card); border: 1px solid var(--border); color: #888; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-size: 13px; }
-        .cat-btn.active { background: var(--p); color: #000; border-color: var(--p); font-weight: 700; }
+        .cats { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; padding: 0 20px; }
+        .cat-btn { background: var(--card); border: 1px solid var(--border); color: #888; padding: 10px 22px; border-radius: 50px; cursor: pointer; font-size: 13px; font-weight: 600; }
+        .cat-btn.active { background: var(--p); color: #000; border-color: var(--p); }
 
-        /* Grid */
-        .grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; padding: 20px; }
+        /* Product Grid */
+        .grid { max-width: 1200px; margin: 0 auto 100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; padding: 0 20px; }
         .p-card { background: var(--card); border: 1px solid var(--border); border-radius: 35px; padding: 15px; position: relative; }
         .p-card:hover { border-color: var(--p); transform: translateY(-10px); background: rgba(255,255,255,0.05); }
         .img-box { width: 100%; aspect-ratio: 16/10; border-radius: 25px; overflow: hidden; margin-bottom: 20px; background: #111; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .p-info h3 { font-size: 20px; margin-bottom: 10px; }
-        .p-footer { display: flex; justify-content: space-between; align-items: center; }
-        .add-btn { background: var(--p); color: #000; border: none; padding: 12px 25px; border-radius: 18px; font-weight: 800; cursor: pointer; }
+        .add-btn { background: var(--p); color: #000; border: none; width: 100%; padding: 15px; border-radius: 20px; font-weight: 800; cursor: pointer; margin-top: 15px; }
 
-        /* FAQ & Reviews */
-        .section-title { text-align: center; margin: 100px 0 40px; font-size: 32px; font-weight: 800; }
-        .review-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 0 20px; }
-        .review-card { background: var(--card); border: 1px solid var(--border); padding: 25px; border-radius: 25px; font-size: 14px; }
+        /* About Section */
+        .about { max-width: 800px; margin: 0 auto 100px; text-align: center; padding: 60px 20px; background: var(--card); border-radius: 40px; border: 1px solid var(--border); }
+        .about h2 { font-size: 32px; margin-bottom: 20px; }
+        .about p { color: #888; line-height: 1.6; }
 
-        /* Checkout Modal */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; z-index: 3000; backdrop-filter: blur(15px); }
-        .modal.active { display: flex; }
-        .modal-box { background: #000; border: 1px solid var(--p); padding: 35px; border-radius: 40px; width: 95%; max-width: 420px; text-align: center; position: relative; }
-        .qr-img { width: 220px; border: 5px solid #fff; border-radius: 20px; margin: 20px 0; }
-        .upload-box { border: 2px dashed #333; padding: 20px; border-radius: 20px; margin-top: 15px; position: relative; cursor: pointer; }
-        .upload-box input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-        #file-info { font-size: 12px; color: var(--p); margin-top: 5px; font-weight: 700; }
-        .confirm-btn { background: var(--p); color: #000; width: 100%; border: none; padding: 18px; border-radius: 20px; font-weight: 900; margin-top: 20px; cursor: pointer; opacity: 0.4; }
-        .confirm-btn.ready { opacity: 1; }
+        /* Footer */
+        footer { padding: 60px 8%; border-top: 1px solid var(--border); text-align: center; background: #050505; }
+        .social-links { display: flex; justify-content: center; gap: 20px; margin: 25px 0; }
+        .social-links a { color: #888; text-decoration: none; font-size: 14px; font-weight: 600; }
+        .social-links a:hover { color: var(--p); }
 
-        .side-cart { position: fixed; right: -100%; top: 0; width: 400px; height: 100%; background: #050505; border-left: 1px solid var(--border); z-index: 2000; padding: 40px; }
+        /* Side Cart & Modal (Same as v8 with API Integration) */
+        .side-cart { position: fixed; right: -100%; top: 0; width: 420px; height: 100%; background: #080808; border-left: 1px solid var(--border); z-index: 2000; padding: 35px; box-shadow: -20px 0 50px #000; }
         .side-cart.active { right: 0; }
-        
-        @media (max-width: 768px) { .side-cart { width: 100%; } .hero h1 { font-size: 60px; } }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; background: var(--card); padding: 15px; border-radius: 20px; border: 1px solid var(--border); }
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none; align-items: center; justify-content: center; z-index: 3000; backdrop-filter: blur(20px); }
+        .modal.active { display: flex; }
+        .modal-box { background: #000; border: 1px solid var(--p); padding: 35px; border-radius: 40px; width: 95%; max-width: 420px; text-align: center; }
+        .qr-img { width: 180px; border: 5px solid #fff; border-radius: 20px; margin: 20px 0; }
+        .upload-area { border: 2px dashed #333; padding: 25px; border-radius: 25px; margin-top: 20px; position: relative; cursor: pointer; }
+        .upload-area input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+        .checkout-final { background: var(--p); color: #000; width: 100%; border: none; padding: 18px; border-radius: 20px; font-weight: 900; margin-top: 20px; cursor: pointer; }
+
+        @media (max-width: 768px) { .side-cart { width: 100%; } .hero h1 { font-size: 55px; } }
     </style>
 </head>
 <body>
+
     <div class="glow"></div>
     <nav>
         <a href="#" class="logo">GFX<span>_</span>PI</a>
-        <button class="cart-btn" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</button>
+        <button class="cart-btn" onclick="toggleCart()">Cart (<span id="count">0</span>)</button>
     </nav>
 
     <div class="hero">
-        <h1>Elite <span>Resources.</span></h1>
-        <p>Premium Photoshop Packs & LUTs for High-End Editors.</p>
+        <h1>Premium <span>Assets</span> for High-End Editors.</h1>
+        <p>Elevate your design game with curated Photoshop packs, LUTs, and textures.</p>
     </div>
 
     <div class="cats">
-        <button class="cat-btn active" onclick="filter('all')">All Products</button>
-        <button class="cat-btn" onclick="filter('gaming')">Gaming PSDs</button>
-        <button class="cat-btn" onclick="filter('vlogs')">Vlog Packs</button>
-        <button class="cat-btn" onclick="filter('assets')">Editing Assets</button>
+        <button class="cat-btn active" onclick="filter('all')">All Access</button>
+        <button class="cat-btn" onclick="filter('gaming')">Gaming</button>
+        <button class="cat-btn" onclick="filter('vlog')">Vlogs</button>
+        <button class="cat-btn" onclick="filter('assets')">Overlays</button>
     </div>
 
-    <div class="grid" id="grid"></div>
+    <div class="grid" id="product-grid"></div>
 
-    <h2 class="section-title">Wall of Love ❤️</h2>
-    <div class="review-grid">
-        <div class="review-card"><p>"Gfx_PI packs changed my workflow. Instant results!"</p><br><b>- Rahul (Gaming YT)</b></div>
-        <div class="review-card"><p>"High quality layers, very easy to edit."</p><br><b>- Aman Edits</b></div>
-        <div class="review-card"><p>"Best LUTs for cinematic thumbnails."</p><br><b>- Rohit (Vlogger)</b></div>
-    </div>
+    <section class="about">
+        <h2>About <span>Gfx_PI</span></h2>
+        <p>Freelance Graphic Designer specialized in high-conversion thumbnails. Every asset in this store is handcrafted to ensure your videos stand out in the algorithm. Quality over everything.</p>
+    </section>
+
+    <footer>
+        <div class="logo">GFX<span>_</span>PI</div>
+        <div class="social-links">
+            <a href="https://instagram.com/gfx_pi" target="_blank">Instagram</a>
+            <a href="https://wa.me/917889967604" target="_blank">WhatsApp</a>
+            <a href="mailto:eliteeditz99@gmail.com">Email Me</a>
+        </div>
+        <p style="color:#444; font-size:12px;">&copy; 2026 Gfx_PI. All Rights Reserved.</p>
+    </footer>
 
     <div class="side-cart" id="cart">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
             <h2>Your Order</h2>
-            <button onclick="toggleCart()" style="background:none; border:none; color:#fff; font-size:30px;">&times;</button>
+            <button onclick="toggleCart()" style="background:none; border:none; color:#fff; font-size:40px;">&times;</button>
         </div>
         <div id="cart-list" style="height:60%; overflow-y:auto;"></div>
-        <div style="border-top: 1px solid var(--border); padding-top:20px;">
-            <h3>Total: <span id="total-price" style="color:var(--p);">₹0</span></h3>
-            <button class="confirm-btn ready" onclick="showPay()" style="opacity:1;">Proceed to Pay</button>
+        <div style="padding-top:20px; border-top:1px solid var(--border);">
+            <h3>Total: <span id="total" style="color:var(--p);">₹0</span></h3>
+            <button class="checkout-final" onclick="showPay()">Continue to Payment</button>
         </div>
     </div>
 
@@ -103,58 +116,49 @@
         <div class="modal-box">
             <h3>Scan & Pay</h3>
             <img src="https://i.ibb.co/FNwb4v5/Whats-App-Image-2026-03-26-at-8-01-25-PM.jpg" class="qr-img">
-            <p style="font-weight:900; color:var(--p);">UPI: 7889967604@fam</p>
-            
-            <div class="upload-box">
-                <p style="font-size:12px;">Click to Upload Screenshot</p>
-                <input type="file" id="ss" accept="image/*" onchange="checkFile()">
-                <div id="file-info"></div>
+            <p style="font-weight:800; color:var(--p);">peerifam@oksbi</p>
+            <div class="upload-area">
+                <p id="file-label">Upload Payment Screenshot</p>
+                <input type="file" id="ss-input" accept="image/*" onchange="handleFile()">
             </div>
-
-            <button class="confirm-btn" id="finish" onclick="order()" disabled>Confirm Order</button>
-            <p onclick="hidePay()" style="margin-top:20px; font-size:12px; cursor:pointer; color:#444;">Cancel Order</p>
+            <button class="checkout-final" id="finish-btn" onclick="confirmPayment()" disabled style="opacity:0.5;">Confirm Order</button>
+            <p onclick="hidePay()" style="margin-top:15px; font-size:12px; cursor:pointer; color:#444;">Cancel</p>
         </div>
     </div>
 
     <script>
+        const IMGBB_API_KEY = '761288e063f8b72e01317449e4069232';
         const products = [
-            { id: 1, cat: 'gaming', name: "Valorant Viral PSD", price: 499, img: "https://via.placeholder.com/600x400/111/fff?text=Gaming+PSD" },
-            { id: 2, cat: 'vlogs', name: "Cinematic Vlog LUTs", price: 199, img: "https://via.placeholder.com/600x400/111/fff?text=LUTs" },
-            { id: 3, cat: 'assets', name: "Ultimate Overlay Pack", price: 299, img: "https://via.placeholder.com/600x400/111/fff?text=Overlays" }
+            { id: 1, cat: 'gaming', name: "Valorant Master Pack", price: 499, img: "https://via.placeholder.com/600x400/111/fff?text=Gaming+PSD" },
+            { id: 2, cat: 'vlog', name: "Cinematic LUTs", price: 199, img: "https://via.placeholder.com/600x400/111/fff?text=Vlog+LUTs" },
+            { id: 3, cat: 'assets', name: "Neon Overlay Bundle", price: 299, img: "https://via.placeholder.com/600x400/111/fff?text=Overlays" }
         ];
 
         let cart = [];
-
         function render(items = products) {
-            const grid = document.getElementById('grid');
+            const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
             items.forEach(p => {
                 grid.innerHTML += `
                     <div class="p-card">
                         <div class="img-box"><img src="${p.img}"></div>
-                        <div class="p-info">
-                            <h3>${p.name}</h3>
-                            <div class="p-footer">
-                                <b>₹${p.price}</b>
-                                <button class="add-btn" onclick="addToCart(${p.id})">Add Item</button>
-                            </div>
+                        <h3 style="margin-bottom:10px;">${p.name}</h3>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <b>₹${p.price}</b>
+                            <button onclick="addToCart(${p.id})" style="background:none; border:none; color:var(--p); font-weight:800; cursor:pointer;">+ ADD TO CART</button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        function addToCart(id) {
-            cart.push(products.find(p => p.id === id));
-            update(); toggleCart(true);
-        }
-
+        function addToCart(id) { cart.push(products.find(p => p.id === id)); update(); toggleCart(true); }
         function update() {
-            document.getElementById('cart-count').innerText = cart.length;
+            document.getElementById('count').innerText = cart.length;
             const list = document.getElementById('cart-list');
             list.innerHTML = ''; let total = 0;
-            cart.forEach(item => { total += item.price; list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>${item.name}</span><b>₹${item.price}</b></div>`; });
-            document.getElementById('total-price').innerText = `₹${total}`;
+            cart.forEach(item => { total += item.price; list.innerHTML += `<div class="cart-item"><span>${item.name}</span><b>₹${item.price}</b></div>`; });
+            document.getElementById('total').innerText = `₹${total}`;
         }
 
         function filter(cat) {
@@ -166,21 +170,33 @@
         function toggleCart(open = false) { document.getElementById('cart').classList.toggle('active', open || undefined); }
         function showPay() { if(cart.length) document.getElementById('pay-modal').classList.add('active'); }
         function hidePay() { document.getElementById('pay-modal').classList.remove('active'); }
-
-        function checkFile() {
-            if(document.getElementById('ss').files.length) {
-                document.getElementById('file-info').innerText = "Selected: " + document.getElementById('ss').files[0].name;
-                document.getElementById('finish').disabled = false;
-                document.getElementById('finish').classList.add('ready');
+        function handleFile() {
+            if(document.getElementById('ss-input').files[0]) {
+                document.getElementById('file-label').innerText = "✅ Screenshot Ready";
+                document.getElementById('finish-btn').disabled = false;
+                document.getElementById('finish-btn').style.opacity = "1";
             }
         }
 
-        function order() {
-            let msg = `Gfx_PI Store Order ✅%0AItems: ${cart.map(i => i.name).join(', ')}%0ATotal: ₹${cart.reduce((s,i) => s+i.price, 0)}%0A%0A(Attaching screenshot...)`;
-            window.open(`https://wa.me/917889967604?text=${msg}`, '_blank');
-            cart = []; update(); hidePay(); toggleCart(false);
-        }
+        function confirmPayment() {
+            const btn = document.getElementById('finish-btn');
+            btn.innerText = "Uploading... Please Wait";
+            btn.disabled = true;
 
+            const formData = new FormData();
+            formData.append('image', document.getElementById('ss-input').files[0]);
+
+            fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    let msg = `*Gfx_PI New Order* 🚀%0A%0A*Items:* ${cart.map(i => i.name).join(', ')}%0A*Total:* ₹${cart.reduce((s,i) => s+i.price, 0)}%0A*Proof:* ${data.data.url}`;
+                    window.open(`https://wa.me/917889967604?text=${msg}`, '_blank');
+                    cart = []; update(); hidePay(); toggleCart(false);
+                    btn.innerText = "Confirm Order";
+                }
+            }).catch(() => { alert("Upload error!"); btn.innerText = "Confirm Order"; btn.disabled = false; });
+        }
         render();
     </script>
 </body>
