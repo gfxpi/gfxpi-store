@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gfx_PI Thumbnail Tester</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 30px;
+            transition: 0.3s;
+        }
+        /* Dark Mode Default */
+        body.dark-mode {
+            background-color: #0f0f0f;
+            color: white;
+        }
+        /* Light Mode */
+        body.light-mode {
+            background-color: #f1f1f1;
+            color: #0f0f0f;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        /* Mobile Preview Box (16:9 Ratio) */
+        .preview-box {
+            width: 320px; 
+            height: 180px;
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 8px;
+            margin: 30px auto;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
+        /* YouTube Timestamp Overlay */
+        .timestamp {
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 3px 4px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 4px;
+            margin: 4px;
+        }
+        button, input {
+            padding: 10px 15px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button { background: #ff0000; color: white; }
+        button:hover { background: #cc0000; }
+    </style>
+</head>
+<body class="dark-mode" id="themeBody">
+
+    <div class="container">
+        <h1>Gfx_PI Thumbnail Reality Check</h1>
+        <p>Dekhein aapka thumbnail YouTube mobile app par kaisa dikhega!</p>
+
+        <input type="file" id="uploadThumb" accept="image/*">
+        
+        <button onclick="toggleTheme()">Dark / Light Mode</button>
+
+        <div class="preview-box" id="thumbnailPreview">
+            <div class="timestamp">10:25</div>
+        </div>
+    </div>
+
+    <script>
+        // Dark/Light Mode change karne ka logic
+        function toggleTheme() {
+            var body = document.getElementById("themeBody");
+            if (body.className === "dark-mode") {
+                body.className = "light-mode";
+            } else {
+                body.className = "dark-mode";
+            }
+        }
+
+        // Image upload karke preview box mein dikhane ka logic
+        document.getElementById('uploadThumb').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('thumbnailPreview').style.backgroundImage = "url('" + e.target.result + "')";
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
