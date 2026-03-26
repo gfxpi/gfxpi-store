@@ -3,164 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gfx_PI Elite Pro v6</title>
+    <title>Gfx_PI | Pro Asset Store</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
-        :root { --p: #00ffa3; --bg: #0d0d0d; --card: #161616; --txt: #ffffff; }
-        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Outfit', sans-serif; }
-        body { background: var(--bg); color: var(--txt); display: flex; height: 100vh; overflow: hidden; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap');
         
-        /* Sidebar */
-        .sidebar { width: 220px; background: #000; border-right: 1px solid #222; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
-        .logo { font-size: 24px; font-weight: 900; margin-bottom: 30px; color: var(--p); text-align: center; }
-        .nav { background: none; border: none; color: #666; padding: 12px; text-align: left; border-radius: 8px; cursor: pointer; font-weight: 700; transition: 0.2s; font-size: 14px; }
-        .nav:hover { background: #111; color: #fff; }
-        .nav.active { background: var(--p); color: #000; }
+        :root {
+            --p: #00ffa3;
+            --bg: #080808;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
 
-        /* Main Content */
-        .main { flex: 1; padding: 30px; overflow-y: auto; }
-        .tab { display: none; }
-        .tab.active { display: block; animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.3s ease; }
+        body { background: var(--bg); color: white; overflow-x: hidden; }
 
-        .card { background: var(--card); border: 1px solid #222; padding: 25px; border-radius: 20px; margin-top: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { font-size: 28px; font-weight: 900; }
-        .subtitle { color: #666; margin-bottom: 20px; }
+        /* Navbar */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 8%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 24px; font-weight: 800; color: var(--p); text-decoration: none; }
+        .cart-icon { background: var(--glass); padding: 10px 20px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; position: relative; }
+        #cart-count { background: var(--p); color: #000; padding: 2px 6px; border-radius: 50%; font-size: 10px; position: absolute; top: -5px; right: -5px; font-weight: 800; }
 
-        input[type="file"] { background: #000; border: 1px solid #333; padding: 10px; width: 100%; border-radius: 8px; color: #888; margin-bottom: 15px; }
-        .btn { background: var(--p); color: #000; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 900; cursor: pointer; font-size: 14px; text-transform: uppercase; }
-        .btn:hover { box-shadow: 0 0 20px rgba(0,255,163,0.3); transform: translateY(-2px); }
-        .btn:active { transform: translateY(0); }
+        /* Hero */
+        .hero { text-align: center; padding: 100px 20px; background: radial-gradient(circle at center, #111 0%, #080808 100%); }
+        .hero h1 { font-size: 56px; font-weight: 800; letter-spacing: -2px; }
+        .hero span { color: var(--p); }
 
-        .result-box { width: 100%; max-width: 800px; aspect-ratio: 16/9; background: #050505; border-radius: 15px; margin-top: 20px; position: relative; border: 1px solid #333; background-size: contain; background-repeat: no-repeat; background-position: center; display: none; }
-        .loading { margin-top: 10px; font-size: 13px; color: var(--p); font-weight: bold; display: none; }
+        /* Product Grid */
+        .container { max-width: 1200px; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 20px; }
+        .card { background: var(--glass); border: 1px solid var(--border); border-radius: 24px; padding: 15px; }
+        .card:hover { border-color: var(--p); transform: translateY(-10px); }
+        .thumb { width: 100%; aspect-ratio: 16/9; background: #1a1a1a; border-radius: 18px; background-size: cover; background-position: center; margin-bottom: 20px; }
+        .add-btn { background: white; color: black; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+
+        /* Cart & Modal Panels */
+        #cart-panel, #pay-modal { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: #0a0a0a; z-index: 101; padding: 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); border-left: 1px solid var(--border); }
+        #cart-panel.open, #pay-modal.open { right: 0; }
+        
+        #pay-modal { right: auto; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0.9); height: auto; border-radius: 30px; display: none; width: 90%; max-width: 400px; border: 1px solid var(--p); text-align: center; }
+        #pay-modal.open { display: block; transform: translate(-50%, -50%) scale(1); }
+
+        .qr-img { width: 220px; border-radius: 15px; margin: 20px 0; border: 5px solid white; }
+        .checkout-btn { width: 100%; background: var(--p); color: #000; border: none; padding: 15px; border-radius: 15px; font-weight: 800; cursor: pointer; margin-top: 10px; }
+
+        .close-btn { position: absolute; top: 20px; right: 20px; background: none; color: white; border: none; font-size: 24px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="logo">GFX_PI</div>
-        <button class="nav active" onclick="go('dash')">DASHBOARD</button>
-        <button class="nav" onclick="go('up')">AI UPSCALER</button>
-        <button class="nav" onclick="go('bg')">BG REMOVER</button>
-        <button class="nav" onclick="go('yt')">YT PREVIEW</button>
+    <nav>
+        <a href="#" class="logo">GFX_PI<span>.</span>STORE</a>
+        <div class="cart-icon" onclick="toggleCart()">🛒 Cart <span id="cart-count">0</span></div>
+    </nav>
+
+    <div class="hero">
+        <h1>Premium Assets for <span>Editors.</span></h1>
     </div>
 
-    <div class="main">
-        <div id="dash" class="tab active">
-            <h1>Elite Dashboard</h1>
-            <p class="subtitle">System active and ready for Peer Ifham.</p>
-            <div class="card">
-                <h3>Welcome back, Boss.</h3>
-                <p style="font-size: 14px; color: #888; margin-top: 10px;">Select a tool from the left to start editing. All APIs are hardcoded.</p>
-            </div>
-        </div>
+    <div class="container" id="product-grid"></div>
 
-        <div id="up" class="tab">
-            <h1>AI Upscaler</h1>
-            <p class="subtitle">DeepAI Sr-Gan processing for low-res images.</p>
-            <div class="card">
-                <input type="file" id="upIn">
-                <button class="btn" onclick="upscale()">Upscale Now</button>
-                <div id="upLoad" class="loading">AI ANALYZING PIXELS... PLEASE WAIT.</div>
-                <div id="upRes" class="result-box"></div>
-                <a id="upDl" class="btn" style="display:none; margin-top:15px; text-decoration:none; text-align:center;">Download HD</a>
+    <div id="cart-panel">
+        <button class="close-btn" onclick="toggleCart()">&times;</button>
+        <h2>Your Cart</h2>
+        <div id="cart-content" style="margin: 30px 0;"></div>
+        <div style="border-top: 1px solid var(--border); padding-top: 20px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 20px;">
+                <span>Total:</span>
+                <span id="total-price" style="font-size: 24px; font-weight: 800; color: var(--p);">₹0</span>
             </div>
+            <button class="checkout-btn" onclick="openPayment()">Pay & Download</button>
         </div>
+    </div>
 
-        <div id="bg" class="tab">
-            <h1>AI BG Remover</h1>
-            <p class="subtitle">Instant subject cutout using Remove.bg.</p>
-            <div class="card">
-                <input type="file" id="bgIn">
-                <button class="btn" onclick="removeBG()">Cut Out Image</button>
-                <div id="bgLoad" class="loading">CUTTING BACKGROUND... WAIT A SEC.</div>
-                <div id="bgRes" class="result-box" style="background-color: #111; border: 2px dashed #333;"></div>
-                <a id="bgDl" class="btn" style="display:none; margin-top:15px; text-decoration:none; text-align:center;">Download PNG</a>
-            </div>
-        </div>
-
-        <div id="yt" class="tab">
-            <h1>YT Previewer</h1>
-            <p class="subtitle">Check your thumbnail composition.</p>
-            <div class="card">
-                <input type="file" id="ytIn" onchange="preview(this)">
-                <div id="ytRes" class="result-box" style="display:block;"></div>
-            </div>
-        </div>
+    <div id="pay-modal">
+        <button class="close-btn" onclick="closePayment()">&times;</button>
+        <h3>Complete Payment</h3>
+        <p style="font-size: 12px; color: #888; margin-top: 5px;">Scan QR & send screenshot on WhatsApp</p>
+        
+        <img src="https://raw.githubusercontent.com/YourGitHubUsername/YourRepo/main/image_3f99c2.png" id="qr-display" class="qr-img" alt="UPI QR Code">
+        
+        <p style="font-weight: 700; color: var(--p);">UPI ID: peerifam@oksbi</p>
+        <button class="checkout-btn" onclick="sendWhatsApp()">✅ I Have Paid (Confirm)</button>
     </div>
 
     <script>
-        function go(id) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.nav').forEach(n => n.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            event.currentTarget.classList.add('active');
+        const products = [
+            { id: 1, name: "Valorant Viral PSD Pack", price: 499, img: "https://via.placeholder.com/400x225/111/fff?text=Valorant+PSD" },
+            { id: 2, name: "Cinematic Skin LUTs", price: 149, img: "https://via.placeholder.com/400x225/111/fff?text=LUTs" },
+            { id: 3, name: "Thumbnail Overlay Pack", price: 299, img: "https://via.placeholder.com/400x225/111/fff?text=Overlays" }
+        ];
+
+        let cart = [];
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            products.forEach(p => {
+                grid.innerHTML += `<div class="card"><div class="thumb" style="background-image: url('${p.img}')"></div><h3>${p.name}</h3><div style="display:flex; justify-content:space-between; margin-top:15px;"><b>₹${p.price}</b><button class="add-btn" onclick="addToCart(${p.id})">+ Add</button></div></div>`;
+            });
         }
 
-        // --- AI UPSCALER ---
-        async function upscale() {
-            const file = document.getElementById('upIn').files[0];
-            if(!file) return alert("Select image first!");
-            const load = document.getElementById('upLoad');
-            load.style.display = 'block';
-
-            const fd = new FormData(); fd.append('image', file);
-            try {
-                const res = await fetch('https://api.deepai.org/api/torch-srgan', {
-                    method: 'POST', 
-                    headers: {'api-key': '26d16552-a87a-40b4-bf5f-1561f169bcab'}, 
-                    body: fd
-                });
-                const data = await res.json();
-                if(data.output_url) {
-                    const resBox = document.getElementById('upRes');
-                    resBox.style.backgroundImage = `url(${data.output_url})`;
-                    resBox.style.display = 'block';
-                    const dl = document.getElementById('upDl');
-                    dl.href = data.output_url; dl.style.display = 'inline-block';
-                } else { alert("Error: File too large or API busy."); }
-            } catch(e) { alert("API Connection Error"); }
-            load.style.display = 'none';
+        function addToCart(id) {
+            cart.push(products.find(p => p.id === id));
+            updateCart();
         }
 
-        // --- AI BG REMOVER ---
-        async function removeBG() {
-            const file = document.getElementById('bgIn').files[0];
-            if(!file) return alert("Select image first!");
-            const load = document.getElementById('bgLoad');
-            load.style.display = 'block';
-
-            const fd = new FormData(); fd.append('image_file', file);
-            try {
-                const res = await fetch('https://api.remove.bg/v1.0/removebg', {
-                    method: 'POST', 
-                    headers: {'X-Api-Key': '56RegUoDjWFpVyQnT3TyuD3c'}, 
-                    body: fd
-                });
-                if(res.ok) {
-                    const blob = await res.blob();
-                    const url = URL.createObjectURL(blob);
-                    const resBox = document.getElementById('bgRes');
-                    resBox.style.backgroundImage = `url(${url})`;
-                    resBox.style.display = 'block';
-                    const dl = document.getElementById('bgDl');
-                    dl.href = url; dl.download = "GfxPI_Cutout.png"; dl.style.display = 'inline-block';
-                } else { alert("Check API Limit or File Format"); }
-            } catch(e) { alert("Network Error"); }
-            load.style.display = 'none';
+        function updateCart() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const content = document.getElementById('cart-content');
+            content.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price;
+                content.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>${item.name}</span><b>₹${item.price}</b></div>`;
+            });
+            document.getElementById('total-price').innerText = `₹${total}`;
         }
 
-        // --- PREVIEWER ---
-        function preview(input) {
-            if(input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    document.getElementById('ytRes').style.backgroundImage = `url(${e.target.result})`;
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
+        function toggleCart() { document.getElementById('cart-panel').classList.toggle('open'); }
+        
+        function openPayment() {
+            if(cart.length === 0) return alert("Cart empty!");
+            toggleCart();
+            document.getElementById('pay-modal').classList.add('open');
         }
+
+        function closePayment() { document.getElementById('pay-modal').classList.remove('open'); }
+
+        function sendWhatsApp() {
+            let items = cart.map(i => i.name).join(', ');
+            let total = cart.reduce((s, i) => s + i.price, 0);
+            let msg = `Hello Ifham! I have paid ₹${total} via QR.%0A📦 Items: ${items}%0A%0A(Attaching screenshot below...)`;
+            window.open(`https://wa.me/917889967604?text=${msg}`, '_blank');
+        }
+
+        renderProducts();
     </script>
 </body>
 </html>
